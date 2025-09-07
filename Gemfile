@@ -7,3 +7,5 @@ gem 'sinatra'
 gem 'rackup'
 gem 'puma'
 gem 'sinatra-contrib'
+
+gem 'rubocop-fjord', require: false
