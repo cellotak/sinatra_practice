@@ -21,3 +21,9 @@ get '/memos' do
   @memos = load_memos
   erb :index
 end
+
+get '/memos/:id' do
+  @memos = load_memos
+  @memo = @memos.find { |memo| memo['id'] == params[:id].to_i }
+  erb :show
+end
