@@ -12,3 +12,12 @@ def load_memos
     []
   end
 end
+
+get '/' do
+  redirect '/memos'
+end
+
+get '/memos' do
+  @memos = load_memos
+  erb :index
+end

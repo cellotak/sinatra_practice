@@ -1,0 +1,9 @@
+<% if @memos.empty? %>
+  <p>メモがありません。</p>
+<% else %>
+  <ul>
+    <% @memos.each do |memo| %>
+      <li><a href="/memos/<%= memo['id'] %>"><%= memo['title'] %></a></li>
+    <% end %>
+  </ul>
+<% end %>
