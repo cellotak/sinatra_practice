@@ -53,6 +53,15 @@ get '/memos/:id' do
   erb :show
 end
 
+patch '/memos/:id' do
+  memos = load_memos(MEMO_FILE_PATH)
+  update_target_memo = memos.find { |memo| memo['id'] == params[:id].to_i }
+  update_target_memo['title'] = params[:title]
+  update_target_memo['content'] = params[:content]
+  save_memos(memos, MEMO_FILE_PATH)
+  redirect "/memos/#{params[:id]}"
+end
+
 get '/memos/:id/edit' do
   @memos = load_memos(MEMO_FILE_PATH)
   @memo = @memos.find { |memo| memo['id'] == params[:id].to_i }

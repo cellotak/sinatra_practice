@@ -1,7 +1,8 @@
-<form action="/memos" method="post">
-  <input type="text" name="title">
+<form action="/memos/<%= @memo['id'] %>" method="post">
+  <input type="hidden" name="_method" value="patch">
+  <input type="text" name="title" value="<%= @memo['title'] %>">
   <br>
-  <textarea name="content"></textarea>
+  <textarea name="content"><%= @memo['content'] %></textarea>
   <br>
   <button type="submit">保存</button>
 </form>
