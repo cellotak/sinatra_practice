@@ -1,2 +1,4 @@
 <h2><%= @memo['title'] %></h2>
 <pre><%= @memo['content'] %></pre>
+
+<button type="button" onclick="location.href='/memos/<%= @memo['id'] %>/edit'">変更</button>
