@@ -8,5 +8,5 @@ gem 'rackup'
 gem 'sinatra'
 gem 'sinatra-contrib'
 
-gem 'rubocop-fjord', require: false
 gem 'erb_lint', require: false
+gem 'rubocop-fjord', require: false
