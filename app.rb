@@ -62,6 +62,13 @@ patch '/memos/:id' do
   redirect "/memos/#{params[:id]}"
 end
 
+delete '/memos/:id' do
+  memos = load_memos(MEMO_FILE_PATH)
+  memos.reject! { |memo| memo['id'] == params[:id].to_i }
+  save_memos(memos, MEMO_FILE_PATH)
+  redirect '/memos'
+end
+
 get '/memos/:id/edit' do
   @memos = load_memos(MEMO_FILE_PATH)
   @memo = @memos.find { |memo| memo['id'] == params[:id].to_i }

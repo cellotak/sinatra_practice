@@ -2,3 +2,8 @@
 <pre><%= @memo['content'] %></pre>
 
 <button type="button" onclick="location.href='/memos/<%= @memo['id'] %>/edit'">変更</button>
+
+<form action="/memos/<%= @memo['id'] %>" method="post" onsubmit="return confirm('本当に削除しますか？');" style="display: inline;">
+  <input type="hidden" name="_method" value="delete">
+  <button type="submit">削除</button>
+</form>
