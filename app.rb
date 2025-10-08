@@ -29,6 +29,20 @@ get '/memos' do
   erb :index
 end
 
+post '/memos' do
+  memos = load_memos(MEMO_FILE_PATH)
+  id = (memos.map { |memo| memo['id'] }.max || 0) + 1
+  posted_memo = {
+    'id' => id,
+    'title' => params[:title],
+    'content' => params[:content],
+    'created_at' => Time.now.iso8601
+  }
+  memos << posted_memo
+  save_memos(memos, MEMO_FILE_PATH)
+  redirect "/memos/#{id}"
+end
+
 get '/memos/new' do
   erb :new
 end
