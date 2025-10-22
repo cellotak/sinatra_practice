@@ -3,6 +3,11 @@
 require 'sinatra'
 require 'sinatra/reloader'
 require 'json'
+require 'erb'
+
+helpers do
+  include ERB::Util
+end
 
 MEMO_FILE_PATH = 'data/memo.json'
 
