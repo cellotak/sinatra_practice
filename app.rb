@@ -55,6 +55,9 @@ end
 get '/memos/:id' do
   @memos = load_memos(MEMO_FILE_PATH)
   @memo = @memos.find { |memo| memo['id'] == params[:id].to_i }
+
+  halt 404 unless @memo
+
   erb :show
 end
 
@@ -77,5 +80,12 @@ end
 get '/memos/:id/edit' do
   @memos = load_memos(MEMO_FILE_PATH)
   @memo = @memos.find { |memo| memo['id'] == params[:id].to_i }
+
+  halt 404 unless @memo
+
   erb :edit
+end
+
+not_found do
+  erb :not_found
 end
