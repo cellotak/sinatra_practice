@@ -1,11 +1,24 @@
-<h2><%= h(@memo['title']) %></h2>
-<pre><%= h(@memo['content']) %></pre>
+<div class="row">
+  <div class="col-lg-6 col-md-8">
 
-<button type="button" onclick="location.href='/memos/<%= @memo['id'] %>/edit'">変更</button>
+    <h2 class="memo-title mb-3"><%= h(@memo['title']) %></h2>
 
-<form action="/memos/<%= @memo['id'] %>" method="post" onsubmit="return confirm('本当に削除しますか？');" style="display: inline;">
-  <input type="hidden" name="_method" value="delete">
-  <button type="submit">削除</button>
-</form>
+    <div class="card">
+      <div class="card-body">
+            <pre class="card-text mb-0"><%= h(@memo['content']) %></pre>
+      </div>
+    </div>
 
-<p><a href="/memos">一覧に戻る</a></p>
+    <div class="mt-4">
+      <a href="/memos/<%= @memo['id'] %>/edit" class="btn btn-secondary">変更</a>
+
+      <form action="/memos/<%= @memo['id'] %>" method="post" onsubmit="return confirm('本当に削除しますか？');" style="display: inline;">
+        <input type="hidden" name="_method" value="delete">
+        <button type="submit" class="btn btn-danger">削除</button>
+      </form>
+    </div>
+
+    <p class="mt-4"><a href="/memos">一覧に戻る</a></p>
+
+  </div>
+</div>

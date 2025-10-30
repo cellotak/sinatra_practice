@@ -1,10 +1,19 @@
-<form action="/memos/<%= @memo['id'] %>" method="post">
-  <input type="hidden" name="_method" value="patch">
-  <input type="text" name="title" value="<%= h(@memo['title']) %>">
-  <br>
-  <textarea name="content"><%= h(@memo['content']) %></textarea>
-  <br>
-  <button type="submit">保存</button>
-</form>
+<div class="row">
+  <div class="col-lg-6 col-md-8">
 
-<a href="/memos/<%= @memo['id'] %>">詳細に戻る</a>
+    <form action="/memos/<%= @memo['id'] %>" method="post">
+      <input type="hidden" name="_method" value="patch">
+      <div class="mb-3">
+        <label for="title" class="form-label">タイトル</label>
+        <input type="text" name="title" id="title" class="form-control" value="<%= h(@memo['title']) %>">
+      </div>
+      <div class="mb-3">
+        <label for="content" class="form-label">内容</label>
+        <textarea name="content" id="content" class="form-control" rows="5"><%= h(@memo['content']) %></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary">保存</button>
+      <a href="/memos/<%= @memo['id'] %>" class="btn btn-secondary">詳細に戻る</a>
+    </form>
+
+  </div>
+</div>

@@ -1,0 +1,13 @@
+.list-group-item {
+  border-color: #cccccc;
+}
+
+.form-label {
+  font-size: 1.15rem;
+  font-weight: 600;
+}
+
+.memo-title {
+  font-size: 1.75rem;
+  font-weight: 600;
+}
