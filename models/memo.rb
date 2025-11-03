@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-# models/memo.rb (新規作成)
-
 require 'json'
 require 'time'
 
