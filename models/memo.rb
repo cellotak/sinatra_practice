@@ -11,57 +11,69 @@ class Memo
   end
 
   def self.find(id)
-    load_memos[id.to_i]
+    load_memos[id.to_s]
   end
 
   def self.create(title:, content:)
-    memos = load_memos
-    new_id = (memos.keys.max || 0) + 1
+    data = load_data_structure
+
+    new_id = data['last_id'] + 1
+    data['last_id'] = new_id
+
     new_memo = {
       'id' => new_id,
       'title' => title,
       'content' => content,
       'created_at' => Time.now.iso8601
     }
-    memos[new_id] = new_memo
-    save_memos(memos)
+
+    data['memos'][new_id.to_s] = new_memo
+
+    save_data_structure(data)
 
     new_memo
   end
 
   def self.update(id:, title:, content:)
-    memos = load_memos
-    target_memo = memos[id.to_i]
+    data = load_data_structure
+    target_id_str = id.to_s
+    target_memo = data['memos'][target_id_str]
 
     return nil unless target_memo
 
     target_memo['title'] = title
     target_memo['content'] = content
-    save_memos(memos)
+
+    save_data_structure(data)
 
     target_memo
   end
 
   def self.destroy(id:)
-    memos = load_memos
-    memos.delete(id.to_i)
-    save_memos(memos)
+    data = load_data_structure
+    data['memos'].delete(id.to_s)
+    save_data_structure(data)
   end
 
   def self.load_memos
-    if File.exist?(MEMO_FILE_PATH)
-      json_data = JSON.parse(File.read(MEMO_FILE_PATH))
-      json_data.map { |memo| [memo['id'], memo] }.to_h
-    else
-      {}
+    load_data_structure['memos']
+  end
+
+  def self.load_data_structure
+    return { 'last_id' => 0, 'memos' => {} } unless File.exist?(MEMO_FILE_PATH)
+
+    begin
+      JSON.parse(File.read(MEMO_FILE_PATH))
+    rescue JSON::ParserError
+      { 'last_id' => 0, 'memos' => {} }
     end
   end
 
-  def self.save_memos(memos)
+  def self.save_data_structure(data)
     File.open(MEMO_FILE_PATH, 'w') do |file|
-      file.write(JSON.pretty_generate(memos.values))
+      file.write(JSON.pretty_generate(data))
     end
   end
 
-  private_class_method :load_memos, :save_memos
+  private_class_method :load_memos, :load_data_structure, :save_data_structure
 end
