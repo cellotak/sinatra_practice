@@ -23,8 +23,7 @@ class Memo
     new_memo = {
       'id' => new_id,
       'title' => title,
-      'content' => content,
-      'created_at' => Time.now.iso8601
+      'content' => content
     }
 
     data['memos'][new_id.to_s] = new_memo
