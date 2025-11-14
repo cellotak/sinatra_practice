@@ -33,7 +33,7 @@ class Memo
     new_memo
   end
 
-  def self.update(id:, title:, content:)
+  def self.update(id, title:, content:)
     data = load_data_structure
     target_id_str = id.to_s
     target_memo = data['memos'][target_id_str]
@@ -48,7 +48,7 @@ class Memo
     target_memo
   end
 
-  def self.destroy(id:)
+  def self.destroy(id)
     data = load_data_structure
     data['memos'].delete(id.to_s)
     save_data_structure(data)

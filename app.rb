@@ -35,13 +35,13 @@ get '/memos/:id' do
 end
 
 patch '/memos/:id' do
-  memo = Memo.update(id: params[:id], title: params[:title], content: params[:content])
+  memo = Memo.update(params[:id], title: params[:title], content: params[:content])
   halt 404 unless memo
   redirect "/memos/#{params[:id]}"
 end
 
 delete '/memos/:id' do
-  Memo.destroy(id: params[:id])
+  Memo.destroy(params[:id])
   redirect '/memos'
 end
 
