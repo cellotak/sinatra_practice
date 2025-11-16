@@ -61,11 +61,7 @@ class Memo
   def self.load_data_structure
     return { 'last_id' => 0, 'memos' => {} } unless File.exist?(MEMO_FILE_PATH)
 
-    begin
-      JSON.parse(File.read(MEMO_FILE_PATH))
-    rescue JSON::ParserError
-      { 'last_id' => 0, 'memos' => {} }
-    end
+    JSON.parse(File.read(MEMO_FILE_PATH))
   end
 
   def self.save_data_structure(data)
