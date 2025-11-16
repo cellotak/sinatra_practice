@@ -17,17 +17,15 @@ class Memo
   def self.create(title:, content:)
     data = load_data
 
-    new_id = data['last_id'] + 1
-    data['last_id'] = new_id
+    data['last_id'] = id = data['last_id'] + 1
 
     new_memo = {
-      'id' => new_id,
+      'id' => id,
       'title' => title,
       'content' => content
     }
 
-    data['memos'][new_id.to_s] = new_memo
-
+    data['memos'][id.to_s] = new_memo
     save_data(data)
 
     new_memo
@@ -35,8 +33,7 @@ class Memo
 
   def self.update(id, title:, content:)
     data = load_data
-    target_id_str = id.to_s
-    target_memo = data['memos'][target_id_str]
+    target_memo = data['memos'][id.to_s]
 
     return nil unless target_memo
 
