@@ -15,7 +15,7 @@ class Memo
   end
 
   def self.create(title:, content:)
-    data = load_data_structure
+    data = load_data
 
     new_id = data['last_id'] + 1
     data['last_id'] = new_id
@@ -28,13 +28,13 @@ class Memo
 
     data['memos'][new_id.to_s] = new_memo
 
-    save_data_structure(data)
+    save_data(data)
 
     new_memo
   end
 
   def self.update(id, title:, content:)
-    data = load_data_structure
+    data = load_data
     target_id_str = id.to_s
     target_memo = data['memos'][target_id_str]
 
@@ -43,32 +43,32 @@ class Memo
     target_memo['title'] = title
     target_memo['content'] = content
 
-    save_data_structure(data)
+    save_data(data)
 
     target_memo
   end
 
   def self.destroy(id)
-    data = load_data_structure
+    data = load_data
     data['memos'].delete(id.to_s)
-    save_data_structure(data)
+    save_data(data)
   end
 
   def self.load_memos
-    load_data_structure['memos']
+    load_data['memos']
   end
 
-  def self.load_data_structure
+  def self.load_data
     return { 'last_id' => 0, 'memos' => {} } unless File.exist?(MEMO_FILE_PATH)
 
     JSON.parse(File.read(MEMO_FILE_PATH))
   end
 
-  def self.save_data_structure(data)
+  def self.save_data(data)
     File.open(MEMO_FILE_PATH, 'w') do |file|
       file.write(JSON.pretty_generate(data))
     end
   end
 
-  private_class_method :load_memos, :load_data_structure, :save_data_structure
+  private_class_method :load_memos, :load_data, :save_data
 end
