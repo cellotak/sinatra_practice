@@ -1,0 +1,17 @@
+<div class="row">
+  <div class="col-lg-6 col-md-8">
+
+    <a href="/memos/new" class="btn btn-primary mb-3">追加</a>
+
+    <% if @memos.empty? %>
+      <p class="text-muted">メモがありません。</p>
+    <% else %>
+      <div class="list-group">
+        <% @memos.each do |memo| %>
+          <a href="/memos/<%= memo['id'] %>" class="list-group-item list-group-item-action"><%= h(memo['title']) %></a>
+        <% end %>
+      </div>
+    <% end %>
+
+  </div>
+</div>
