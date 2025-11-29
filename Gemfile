@@ -14,3 +14,5 @@ gem 'rubocop-fjord', require: false
 gem 'pg'
 
 gem 'irb'
+
+gem 'dotenv'

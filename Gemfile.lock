@@ -37,6 +37,7 @@ GEM
     connection_pool (2.5.4)
     crass (1.0.6)
     date (3.4.1)
+    dotenv (3.1.8)
     drb (2.2.3)
     erb (4.0.4)
       cgi (>= 0.3.3)
@@ -161,6 +162,7 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
+  dotenv
   erb_lint
   irb
   pg
