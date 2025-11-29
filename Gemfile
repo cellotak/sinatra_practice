@@ -10,3 +10,9 @@ gem 'sinatra-contrib'
 
 gem 'erb_lint', require: false
 gem 'rubocop-fjord', require: false
+
+gem 'pg'
+
+gem 'irb'
+
+gem 'dotenv'
