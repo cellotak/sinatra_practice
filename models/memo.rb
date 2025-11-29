@@ -1,65 +1,32 @@
 # frozen_string_literal: true
 
-require 'json'
-require 'time'
+require 'pg'
+require 'dotenv/load'
 
 class Memo
-  MEMO_FILE_PATH = 'data/memo.json'
+  def self.connection
+    @connection ||= PG::Connection.new(ENV.fetch('DATABASE_URL'))
+  end
 
   def self.all
-    load_data['memos'].values
+    connection.exec_params('SELECT id, title, content FROM memos ORDER BY id DESC', []).to_a
   end
 
   def self.find(id)
-    load_data['memos'][id.to_s]
+    result = connection.exec_params('SELECT id, title, content FROM memos WHERE id = $1', [id.to_i])
+    result[0] if result.any?
   end
 
   def self.create(title:, content:)
-    data = load_data
-
-    data['last_id'] = id = data['last_id'] + 1
-
-    memo = {
-      'id' => id,
-      'title' => title,
-      'content' => content
-    }
-
-    data['memos'][id.to_s] = memo
-    save_data(data)
-
-    memo
+    connection.exec_params('INSERT INTO memos (title, content) VALUES ($1, $2) RETURNING id, title, content', [title, content])[0]
   end
 
   def self.update(id, title:, content:)
-    data = load_data
-    memo = data['memos'][id.to_s]
-
-    return nil unless memo
-
-    memo['title'] = title
-    memo['content'] = content
-
-    save_data(data)
-
-    memo
+    result = connection.exec_params('UPDATE memos SET title = $1, content = $2 WHERE id = $3 RETURNING id, title, content', [title, content, id.to_i])
+    result[0] if result.any?
   end
 
   def self.destroy(id)
-    data = load_data
-    data['memos'].delete(id.to_s)
-    save_data(data)
+    connection.exec_params('DELETE FROM memos WHERE id = $1', [id.to_i])
   end
-
-  def self.load_data
-    File.exist?(MEMO_FILE_PATH) ? JSON.parse(File.read(MEMO_FILE_PATH)) : { 'last_id' => 0, 'memos' => {} }
-  end
-
-  def self.save_data(data)
-    File.open(MEMO_FILE_PATH, 'w') do |file|
-      file.write(JSON.pretty_generate(data))
-    end
-  end
-
-  private_class_method :load_data, :save_data
 end
