@@ -13,20 +13,20 @@ DB には PostgreSQL を使用しています。
 
 ## 実行手順（ローカル環境）
 
-### 1. リポジトリのクローン
+### リポジトリのクローン
 
 ```bash
 git clone git@github.com:cellotak/sinatra_practice.git
 cd sinatra_practice
 ```
 
-### 2. Gem のインストール
+### Gem のインストール
 
 ```bash
 bundle install
 ```
 
-### 3. データベースのセットアップ
+### データベースのセットアップ
 
 以下のように PostgreSQL に接続します。
 
@@ -53,17 +53,17 @@ CREATE TABLE memos (
 \q
 ```
 
-### 4. 環境変数の設定
+## 環境変数の設定
 
 `.env.example` を参考にして、ルートディレクトリに `.env` ファイルを作成し、`DATABASE_URL` を設定してください。
 
-### 5. アプリケーションの起動
+### アプリケーションの起動
 
 ```bash
 bundle exec ruby app.rb
 ```
 
-### 6. ブラウザでアクセス
+### ブラウザでアクセス
 
 ブラウザで `http://localhost:4567` にアクセスしてください。
 
