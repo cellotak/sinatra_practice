@@ -9,7 +9,7 @@ class Memo
   end
 
   def self.all
-    connection.exec_params('SELECT id, title, content FROM memos ORDER BY id DESC', []).to_a
+    connection.exec('SELECT id, title, content FROM memos ORDER BY id DESC').to_a
   end
 
   def self.find(id)
