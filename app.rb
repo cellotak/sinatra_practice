@@ -2,7 +2,6 @@
 
 require 'sinatra'
 require 'sinatra/reloader'
-require 'json'
 require 'erb'
 require_relative 'models/memo'
 
